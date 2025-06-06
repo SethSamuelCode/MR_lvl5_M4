@@ -1,5 +1,6 @@
 from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware 
+from pydantic import BaseModel 
 
 app = FastAPI()
 
@@ -15,10 +16,14 @@ app.add_middleware(
 )
 
 
+class UserData(BaseModel):
+    hello: str
+
 @app.get("/")
 def read_root():
     return "hello world"
 
 @app.post("/postTest")
-def sendback():
-    
+def sendback(userin: UserData):
+    return userin
+
