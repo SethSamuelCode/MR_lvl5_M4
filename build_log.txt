@@ -1,0 +1,7 @@
+backend.cpp: In lambda function:
+backend.cpp:39:29: error: conversion from ‘nlohmann::json_abi_v3_11_2::basic_json<>(nlohmann::json_abi_v3_11_2::basic_json<>::initializer_list_t)’ {aka ‘nlohmann::json_abi_v3_11_2::basic_json<>(std::initializer_list<nlohmann::json_abi_v3_11_2::detail::json_ref<nlohmann::json_abi_v3_11_2::basic_json<> > >)’} to non-scalar type ‘Json’ {aka ‘nlohmann::json_abi_v3_11_2::basic_json<>’} requested
+   39 |         Json aiSend = Json::object {
+      |                             ^~~~~~
+backend.cpp:39:36: error: expected ‘,’ or ‘;’ before ‘{’ token
+   39 |         Json aiSend = Json::object {
+      |                                    ^
