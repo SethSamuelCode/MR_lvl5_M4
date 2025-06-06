@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 from google import genai
 from google.genai import types
+from uuid_extensions import uuid7
+
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
@@ -34,6 +36,10 @@ def read_root():
 @app.post("/postTest")
 def sendback(userin: UserData):
     return userin
+
+@app.get("/api/uuid")
+def sendUUID():
+    return {"uuid": uuid7()}
 
 class Message(BaseModel):
     message: str
