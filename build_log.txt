@@ -1,7 +1,103 @@
 backend.cpp: In lambda function:
-backend.cpp:39:29: error: conversion from ‘nlohmann::json_abi_v3_11_2::basic_json<>(nlohmann::json_abi_v3_11_2::basic_json<>::initializer_list_t)’ {aka ‘nlohmann::json_abi_v3_11_2::basic_json<>(std::initializer_list<nlohmann::json_abi_v3_11_2::detail::json_ref<nlohmann::json_abi_v3_11_2::basic_json<> > >)’} to non-scalar type ‘Json’ {aka ‘nlohmann::json_abi_v3_11_2::basic_json<>’} requested
-   39 |         Json aiSend = Json::object {
-      |                             ^~~~~~
-backend.cpp:39:36: error: expected ‘,’ or ‘;’ before ‘{’ token
-   39 |         Json aiSend = Json::object {
+backend.cpp:40:37: error: expected ‘}’ before ‘{’ token
+   40 |             {"contents", Json::array{
+      |             ~                       ^
+backend.cpp:40:37: error: expected ‘}’ before ‘{’ token
+backend.cpp:39:37: note: to match this ‘{’
+   39 |         Json aiSend = Json::object( {
+      |                                     ^
+backend.cpp:40:37: error: expected ‘)’ before ‘{’ token
+   40 |             {"contents", Json::array{
+      |                                     ^
+      |                                     )
+backend.cpp:39:35: note: to match this ‘(’
+   39 |         Json aiSend = Json::object( {
+      |                                   ^
+backend.cpp:49:14: error: expected ‘,’ or ‘;’ before ‘}’ token
+   49 |             }},
+      |              ^
+backend.cpp: In function ‘int main()’:
+backend.cpp:50:46: error: expected ‘}’ before ‘{’ token
+   50 |             {"generationConfig", Json::object{
+      |             ~                                ^
+backend.cpp:50:46: error: expected ‘)’ before ‘{’ token
+   50 |             {"generationConfig", Json::object{
+      |                                              ^
+      |                                              )
+backend.cpp:31:58: note: to match this ‘(’
+   31 |     CROW_ROUTE(app,"/ai").methods(crow::HTTPMethod::POST)([](const crow::request& req){
+      |                                                          ^
+backend.cpp: At global scope:
+backend.cpp:53:9: error: expected declaration before ‘}’ token
+   53 |         });
+      |         ^
+backend.cpp:53:10: error: expected unqualified-id before ‘)’ token
+   53 |         });
+      |          ^
+backend.cpp:58:23: error: ‘aiSend’ was not declared in this scope; did you mean ‘send’?
+   58 |             cpr::Body{aiSend.dump()}
+      |                       ^~~~~~
+      |                       send
+backend.cpp:58:36: error: no matching function for call to ‘cpr::Body::Body(<brace-enclosed initializer list>)’
+   58 |             cpr::Body{aiSend.dump()}
       |                                    ^
+In file included from /usr/local/include/cpr/session.h:17,
+                 from /usr/local/include/cpr/multiperform.h:6,
+                 from /usr/local/include/cpr/api.h:17,
+                 from /usr/local/include/cpr/cpr.h:4,
+                 from backend.cpp:2:
+/usr/local/include/cpr/body.h:44:5: note: candidate: ‘cpr::Body::Body(cpr::Body&&)’
+   44 |     Body(Body&& old) noexcept = default;
+      |     ^~~~
+/usr/local/include/cpr/body.h:44:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:43:5: note: candidate: ‘cpr::Body::Body(const cpr::Body&)’
+   43 |     Body(const Body& other) = default;
+      |     ^~~~
+/usr/local/include/cpr/body.h:43:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:29:5: note: candidate: ‘cpr::Body::Body(const cpr::File&)’
+   29 |     Body(const File& file) {
+      |     ^~~~
+/usr/local/include/cpr/body.h:29:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:27:5: note: candidate: ‘cpr::Body::Body(const cpr::Buffer&)’
+   27 |     Body(const Buffer& buffer) : StringHolder<Body>(reinterpret_cast<const char*>(buffer.data), static_cast<size_t>(buffer.datalen)) {}
+      |     ^~~~
+/usr/local/include/cpr/body.h:27:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:25:5: note: candidate: ‘cpr::Body::Body(std::initializer_list<std::__cxx11::basic_string<char> >)’
+   25 |     Body(const std::initializer_list<std::string> args) : StringHolder<Body>(args) {}
+      |     ^~~~
+/usr/local/include/cpr/body.h:25:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:24:5: note: candidate: ‘cpr::Body::Body(const char*, size_t)’
+   24 |     Body(const char* str, size_t len) : StringHolder<Body>(str, len) {}
+      |     ^~~~
+/usr/local/include/cpr/body.h:24:5: note:   candidate expects 2 arguments, 1 provided
+/usr/local/include/cpr/body.h:23:5: note: candidate: ‘cpr::Body::Body(const char*)’
+   23 |     Body(const char* body) : StringHolder<Body>(body) {}
+      |     ^~~~
+/usr/local/include/cpr/body.h:23:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:21:5: note: candidate: ‘cpr::Body::Body(std::string_view)’
+   21 |     Body(std::string_view body) : StringHolder<Body>(body) {}
+      |     ^~~~
+/usr/local/include/cpr/body.h:21:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:19:5: note: candidate: ‘cpr::Body::Body(std::string)’
+   19 |     Body(std::string body) : StringHolder<Body>(std::move(body)) {}
+      |     ^~~~
+/usr/local/include/cpr/body.h:19:5: note:   conversion of argument 1 would be ill-formed:
+/usr/local/include/cpr/body.h:17:5: note: candidate: ‘constexpr cpr::Body::Body()’
+   17 |     Body() = default;
+      |     ^~~~
+/usr/local/include/cpr/body.h:17:5: note:   candidate expects 0 arguments, 1 provided
+backend.cpp:61:9: error: expected unqualified-id before ‘return’
+   61 |         return crow::response(aiResp.text);
+      |         ^~~~~~
+backend.cpp:62:5: error: expected declaration before ‘}’ token
+   62 |     });
+      |     ^
+backend.cpp:62:6: error: expected unqualified-id before ‘)’ token
+   62 |     });
+      |      ^
+backend.cpp:64:5: error: ‘app’ does not name a type
+   64 |     app.port(18080).multithreaded().run();
+      |     ^~~
+backend.cpp:65:1: error: expected declaration before ‘}’ token
+   65 | }
+      | ^

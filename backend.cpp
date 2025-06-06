@@ -36,7 +36,7 @@ int main (){
 
         std::string userInput = reqBod["userInput"].s();
 
-        Json aiSend = Json::object {
+        Json aiSend = Json::object( {
             {"contents", Json::array{
                 Json::object{
                     {"role", "user"},
@@ -50,7 +50,7 @@ int main (){
             {"generationConfig", Json::object{
                 {"responseMimeType", "text/plain"}
             }}
-        };
+        });
 
         cpr::Response aiResp = cpr::Post(
             cpr::Url{"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:GenerateContent?key=${AI_KEY}"},

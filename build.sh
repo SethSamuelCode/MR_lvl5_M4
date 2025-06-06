@@ -4,9 +4,6 @@
 # Add multiple include paths
 # Add verbose output flags
 g++ -std=c++17 \
-    -Wall \
-    -Wextra \
-    -Wpedantic \
     -I /workspaces/MR_lvl5_M4/boost_1_85_0/libs/asio/include \
     -I /workspaces/MR_lvl5_M4/boostInstall/include \
     -I /workspaces/MR_lvl5_M4/libs \
