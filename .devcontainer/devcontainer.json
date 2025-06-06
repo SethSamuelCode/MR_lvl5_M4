@@ -12,7 +12,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-"postCreateCommand": "sudo sed -i s#v3.20#edge#g /etc/apk/repositories && sudo apk update && sudo apk upgrade && sudo apk add pipx && pipx install \"fastapi[standard]\" ",
+	"postCreateCommand": "sudo sed -i s#v3.20#edge#g /etc/apk/repositories && sudo apk update && sudo apk upgrade && sudo apk add py3-pip && python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt" ,
 
 	// Configure tool-specific properties.
 	// "customizations": {},
