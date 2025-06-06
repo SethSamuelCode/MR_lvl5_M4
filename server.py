@@ -3,10 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel 
 from dotenv import load_dotenv 
 import os
-
+from google import genai
+from google.genai import types
 load_dotenv()
-
 API_KEY = os.getenv("GEMINI_API_KEY")
+
+client = genai.Client(api_key = API_KEY)
 
 app = FastAPI()
 
@@ -33,3 +35,11 @@ def read_root():
 def sendback(userin: UserData):
     return userin
 
+class Message(BaseModel):
+    message: str
+
+@app.post("/api/chat")
+async def chat(userin: Message):
+    chat = client.aio.chats.create(model='gemini-2.0-flash')
+    resp = await chat.send_message(userin.message)
+    return resp.candidates[0].content.parts[0].text
