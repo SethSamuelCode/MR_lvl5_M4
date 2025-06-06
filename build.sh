@@ -4,7 +4,6 @@
 # Add multiple include paths
 # Add verbose output flags
 g++ -std=c++17 \
-    -v \
     -Wall \
     -Wextra \
     -Wpedantic \
