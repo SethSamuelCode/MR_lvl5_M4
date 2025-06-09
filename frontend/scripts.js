@@ -11,9 +11,6 @@ const userTextInputArea = document.querySelector("#userInput");
 const sendButton = document.querySelector("#sendButton");
 userInputForm.addEventListener("submit", sendViaWebsocket); // Attach form submit handler
 
-// Object to hold the session UUID
-const SESSION_UUID = {};
-
 let websocket;
 
 window.onload = async () => {
@@ -28,17 +25,12 @@ window.onload = async () => {
   websocket.onmessage = (event) => {
     console.log(JSON.parse(event.data));
     const incomingMessage = JSON.parse(event.data);
-    if (incomingMessage.uuid) {
-      SESSION_UUID.value = incomingMessage.uuid; // Store UUID in SESSION_UUID object
-      Object.freeze(SESSION_UUID); // Prevent further changes to SESSION_UUID
-      sendButton.removeAttribute("disabled"); // Enable send button after UUID is fetched
-    } else {
       const aiResponseElement = document.createElement("p");
       aiResponseElement.classList.add("aiResponseBubble");
       aiResponseElement.classList.add("bubble");
       aiResponseElement.insertAdjacentText("afterbegin", incomingMessage.message);
       conversationArea.append(aiResponseElement);
-    }
+    
   };
 
   // sendToAI()
@@ -97,10 +89,5 @@ async function sendViaWebsocket(e) {
   userInputElement.classList.add("bubble");
   userInputElement.insertAdjacentText("afterbegin", userInput);
   conversationArea.append(userInputElement);
-  websocket.send(
-    JSON.stringify({
-      uuid: SESSION_UUID.value,
-      message: userInput,
-    })
-  );
+  websocket.send(userInput);
 }

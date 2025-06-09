@@ -92,19 +92,17 @@ async def chat(userin: Message) -> str:
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    # await websocket.send_text(str(uuid7()))
     userUUID: str = str(uuid7())
-    await websocket.send_json({"uuid": userUUID })
     chatSessions[userUUID]= ChatSession()
     aiResp = await chatSessions[userUUID]._session.send_message(" ")
     await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
     try:
         while True:
-            data = await websocket.receive_json()
+            data = await websocket.receive_text()
             # userinput = json.loads(data)
             print(data)
-            aiResp = await chatSessions[userUUID]._session.send_message(data["message"])
+            aiResp = await chatSessions[userUUID]._session.send_message(data)
             await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
     except WebSocketDisconnect:
         print(userUUID+": Disconnected ")
-        
+        del chatSessions[userUUID]
