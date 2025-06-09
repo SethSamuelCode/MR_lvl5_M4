@@ -2,13 +2,12 @@
 
 // console.log("hello world");
 
-const BACKEND_SERVER = "http://localhost:4000";
+const BACKEND_SERVER = "http://localhost:8000";
 
 // Get references to DOM elements
 const conversationArea = document.querySelector("#convoDisplayArea");
 const userInputForm = document.querySelector("#userInputForm");
 const userTextInputArea = document.querySelector("#userInput");
-const jobDescriptionInput = document.querySelector("#jobDescription");
 const sendButton = document.querySelector("#sendButton");
 userInputForm.addEventListener("submit", sendToAI); // Attach form submit handler
 
@@ -44,8 +43,7 @@ async function sendToAI(e) {
     },
     body: JSON.stringify({
       uuid: SESSION_UUID.value, // Use the stored UUID
-      job: jobDescriptionInput.value,
-      userInput: userInput,
+      message: userInput,
     }),
   };
   // Display user's message in the conversation area
@@ -58,11 +56,11 @@ async function sendToAI(e) {
   // Send request to backend and display AI's response
   const aiResponse = await fetch(`${BACKEND_SERVER}/api/chat`, fetchOptions);
   const aiText = await aiResponse.json();
-  console.log(aiText.response);
+  console.log(aiText);
 
   const aiResponseElement = document.createElement("p");
   aiResponseElement.classList.add("aiResponseBubble");
   aiResponseElement.classList.add("bubble");
-  aiResponseElement.insertAdjacentText("afterbegin", aiText.response);
+  aiResponseElement.insertAdjacentText("afterbegin", aiText);
   conversationArea.append(aiResponseElement);
 }
