@@ -5,6 +5,5 @@ WORKDIR /app/back
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-
-
-ENTRYPOINT ["fastapi","run","server.py"]
+# Using uvicorn with proxy settings
+ENTRYPOINT ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips", "*"]
