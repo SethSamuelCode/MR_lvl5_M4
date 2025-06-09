@@ -1,0 +1,3 @@
+ helm install m4 ./mr_m4_helm_charts --set backend.geminiApiKey= 
+ kubectl.exe port-forward service/frontend 80:80
+ kubectl.exe port-forward service/backend 8000:8000 
