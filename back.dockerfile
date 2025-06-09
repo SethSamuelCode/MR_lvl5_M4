@@ -1,6 +1,8 @@
 FROM python:3.12-alpine 
 
-COPY . /app/back
+COPY .env /app/back/
+COPY requirements.txt /app/back/
+COPY server.py /app/back/
 WORKDIR /app/back
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
