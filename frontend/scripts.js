@@ -9,43 +9,45 @@ const conversationArea = document.querySelector("#convoDisplayArea");
 const userInputForm = document.querySelector("#userInputForm");
 const userTextInputArea = document.querySelector("#userInput");
 const sendButton = document.querySelector("#sendButton");
-userInputForm.addEventListener("submit", sendToAI); // Attach form submit handler
+userInputForm.addEventListener("submit", sendViaWebsocket); // Attach form submit handler
 
 // Object to hold the session UUID
-const SESSION_UUID = {}
+const SESSION_UUID = {};
 
-let websocket ;
+let websocket;
 
 window.onload = async () => {
   // Fetch a new UUID from the backend and store it in SESSION_UUID
-  console.log("running")
+  console.log("running");
   // const uuidResp = await fetch(`${BACKEND_SERVER}/api/uuid`);
   // const uuidFromServer = await uuidResp.json();
   // console.log(uuidFromServer)
   //   console.log("UUID2",SESSION_UUID)
-  
-  websocket = new WebSocket(`${BACKEND_SERVER}/ws`);
-  websocket.onmessage = (event)=>{
-    console.log(JSON.parse(event.data))
-    const incomingMessage = JSON.parse(event.data)
-    if (incomingMessage.uuid){
-      SESSION_UUID.value= incomingMessage.uuid; // Store UUID in SESSION_UUID object
-      Object.freeze(SESSION_UUID) // Prevent further changes to SESSION_UUID
-      sendButton.removeAttribute("disabled") // Enable send button after UUID is fetched
-    }
-  }
 
+  websocket = new WebSocket(`${BACKEND_SERVER}/ws`);
+  websocket.onmessage = (event) => {
+    console.log(JSON.parse(event.data));
+    const incomingMessage = JSON.parse(event.data);
+    if (incomingMessage.uuid) {
+      SESSION_UUID.value = incomingMessage.uuid; // Store UUID in SESSION_UUID object
+      Object.freeze(SESSION_UUID); // Prevent further changes to SESSION_UUID
+      sendButton.removeAttribute("disabled"); // Enable send button after UUID is fetched
+    } else {
+      const aiResponseElement = document.createElement("p");
+      aiResponseElement.classList.add("aiResponseBubble");
+      aiResponseElement.classList.add("bubble");
+      aiResponseElement.insertAdjacentText("afterbegin", incomingMessage.message);
+      conversationArea.append(aiResponseElement);
+    }
+  };
 
   // sendToAI()
-}
-
-
-
+};
 
 // Handle form submission: send user input and job description to backend, display conversation
 async function sendToAI(e) {
-  //first time this func is executed there is no event to opperate on 
-  if (e){
+  //first time this func is executed there is no event to opperate on
+  if (e) {
     e.preventDefault();
   }
   const userInput = userTextInputArea.value || " ";
@@ -65,8 +67,7 @@ async function sendToAI(e) {
   };
 
   //do not display user bubble on the first message
-  if (e){
-
+  if (e) {
     // Display user's message in the conversation area
     const userInputElement = document.createElement("p");
     userInputElement.classList.add("userInputBubble");
@@ -85,4 +86,21 @@ async function sendToAI(e) {
   aiResponseElement.classList.add("bubble");
   aiResponseElement.insertAdjacentText("afterbegin", aiText);
   conversationArea.append(aiResponseElement);
+}
+
+async function sendViaWebsocket(e) {
+  e.preventDefault();
+  const userInput = userTextInputArea.value || " ";
+  userTextInputArea.value = "";
+  const userInputElement = document.createElement("p");
+  userInputElement.classList.add("userInputBubble");
+  userInputElement.classList.add("bubble");
+  userInputElement.insertAdjacentText("afterbegin", userInput);
+  conversationArea.append(userInputElement);
+  websocket.send(
+    JSON.stringify({
+      uuid: SESSION_UUID.value,
+      message: userInput,
+    })
+  );
 }

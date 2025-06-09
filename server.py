@@ -92,7 +92,11 @@ async def chat(userin: Message) -> str:
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     # await websocket.send_text(str(uuid7()))
-    await websocket.send_json({"uuid": str(uuid7())})
+    userUUID: str = str(uuid7())
+    await websocket.send_json({"uuid": userUUID })
+    chatSessions[userUUID]= ChatSession()
+    aiResp = await chatSessions[userUUID]._session.send_message(" ")
+    await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
     while True:
         data = await websocket.receive_json()
         print(data)
