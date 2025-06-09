@@ -1,6 +1,6 @@
 # ------------------ SETUP AND INSTALL ----------------- #
 
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware 
 from pydantic import BaseModel 
 from dotenv import load_dotenv 
@@ -11,6 +11,7 @@ from uuid_extensions import uuid7
 from dataclasses import dataclass
 from typing import Final
 import time
+import json
 
 # Load environment variables and set up Gemini API client
 load_dotenv()
@@ -97,6 +98,13 @@ async def websocket_endpoint(websocket: WebSocket):
     chatSessions[userUUID]= ChatSession()
     aiResp = await chatSessions[userUUID]._session.send_message(" ")
     await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
-    while True:
-        data = await websocket.receive_json()
-        print(data)
+    try:
+        while True:
+            data = await websocket.receive_json()
+            # userinput = json.loads(data)
+            print(data)
+            aiResp = await chatSessions[userUUID]._session.send_message(data["message"])
+            await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
+    except WebSocketDisconnect:
+        print(userUUID+": Disconnected ")
+        
