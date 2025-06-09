@@ -1,6 +1,6 @@
 # ------------------ SETUP AND INSTALL ----------------- #
 
-from fastapi import FastAPI 
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware 
 from pydantic import BaseModel 
 from dotenv import load_dotenv 
@@ -24,12 +24,6 @@ app = FastAPI()
 
 
 # Configure CORS (Cross-Origin Resource Sharing) settings
-corsOrigins = [
-    "http://localhost",
-    "http://localhost:80",
-    "http://frontend",
-    "http://frontend:80"
-]
 
 app.add_middleware(
     CORSMiddleware,
@@ -94,4 +88,11 @@ async def chat(userin: Message) -> str:
     resp = await chatSessions[userin.uuid]._session.send_message(userin.message)
     return resp.candidates[0].content.parts[0].text
 
-    
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    # await websocket.send_text(str(uuid7()))
+    await websocket.send_json({"uuid": str(uuid7())})
+    while True:
+        data = await websocket.receive_json()
+        print(data)

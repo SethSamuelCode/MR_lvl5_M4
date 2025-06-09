@@ -14,20 +14,31 @@ userInputForm.addEventListener("submit", sendToAI); // Attach form submit handle
 // Object to hold the session UUID
 const SESSION_UUID = {}
 
+let websocket ;
 
 window.onload = async () => {
   // Fetch a new UUID from the backend and store it in SESSION_UUID
   console.log("running")
-  const uuidResp = await fetch(`${BACKEND_SERVER}/api/uuid`);
-  const uuidFromServer = await uuidResp.json();
+  // const uuidResp = await fetch(`${BACKEND_SERVER}/api/uuid`);
+  // const uuidFromServer = await uuidResp.json();
   // console.log(uuidFromServer)
-  SESSION_UUID.value= uuidFromServer.uuid; // Store UUID in SESSION_UUID object
   //   console.log("UUID2",SESSION_UUID)
-  Object.freeze(SESSION_UUID) // Prevent further changes to SESSION_UUID
-  sendButton.removeAttribute("disabled") // Enable send button after UUID is fetched
+  
+  websocket = new WebSocket(`${BACKEND_SERVER}/ws`);
+  websocket.onmessage = (event)=>{
+    console.log(JSON.parse(event.data))
+    const incomingMessage = JSON.parse(event.data)
+    if (incomingMessage.uuid){
+      SESSION_UUID.value= incomingMessage.uuid; // Store UUID in SESSION_UUID object
+      Object.freeze(SESSION_UUID) // Prevent further changes to SESSION_UUID
+      sendButton.removeAttribute("disabled") // Enable send button after UUID is fetched
+    }
+  }
 
-  sendToAI()
+
+  // sendToAI()
 }
+
 
 
 
