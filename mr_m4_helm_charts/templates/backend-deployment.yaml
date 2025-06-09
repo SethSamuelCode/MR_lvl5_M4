@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    MatchLables:
+      app: "backend" 
+  template:
+    metadata:
+      lables:
+        app: backend
+  spec:
+    containers:
+    - name: backend
+      image: {{ .Values.backend.image.repository }}
+      ports: 
+        - containerPort: {{ .Values.backend.service.port }}
