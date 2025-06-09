@@ -13,25 +13,31 @@ userInputForm.addEventListener("submit", sendToAI); // Attach form submit handle
 
 // Object to hold the session UUID
 const SESSION_UUID = {}
-getUUID(SESSION_UUID) // Fetch and set the session UUID on page load
-// console.log("UUID: ",SESSION_UUID)
 
-// Fetch a new UUID from the backend and store it in SESSION_UUID
-async function getUUID (SESSION_UUID) {
-    console.log("running")
+
+window.onload = async () => {
+  // Fetch a new UUID from the backend and store it in SESSION_UUID
+  console.log("running")
   const uuidResp = await fetch(`${BACKEND_SERVER}/api/uuid`);
   const uuidFromServer = await uuidResp.json();
-  sendButton.removeAttribute("disabled") // Enable send button after UUID is fetched
-  console.log(uuidFromServer)
+  // console.log(uuidFromServer)
   SESSION_UUID.value= uuidFromServer.uuid; // Store UUID in SESSION_UUID object
-//   console.log("UUID2",SESSION_UUID)
+  //   console.log("UUID2",SESSION_UUID)
   Object.freeze(SESSION_UUID) // Prevent further changes to SESSION_UUID
-};
+  sendButton.removeAttribute("disabled") // Enable send button after UUID is fetched
+
+  sendToAI()
+}
+
+
 
 // Handle form submission: send user input and job description to backend, display conversation
 async function sendToAI(e) {
-  e.preventDefault();
-  const userInput = userTextInputArea.value;
+  //first time this func is executed there is no event to opperate on 
+  if (e){
+    e.preventDefault();
+  }
+  const userInput = userTextInputArea.value || " ";
   console.log(userInput);
   userTextInputArea.value = "";
 
@@ -46,12 +52,17 @@ async function sendToAI(e) {
       message: userInput,
     }),
   };
-  // Display user's message in the conversation area
-  const userInputElement = document.createElement("p");
-  userInputElement.classList.add("userInputBubble");
-  userInputElement.classList.add("bubble");
-  userInputElement.insertAdjacentText("afterbegin", userInput);
-  conversationArea.append(userInputElement);
+
+  //do not display user bubble on the first message
+  if (e){
+
+    // Display user's message in the conversation area
+    const userInputElement = document.createElement("p");
+    userInputElement.classList.add("userInputBubble");
+    userInputElement.classList.add("bubble");
+    userInputElement.insertAdjacentText("afterbegin", userInput);
+    conversationArea.append(userInputElement);
+  }
 
   // Send request to backend and display AI's response
   const aiResponse = await fetch(`${BACKEND_SERVER}/api/chat`, fetchOptions);
