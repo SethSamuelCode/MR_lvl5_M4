@@ -17,3 +17,5 @@ backend:
   service:
     type: NodePort
     port: 8000
+  # Add this value during helm install with --set backend.geminiApiKey=your-api-key
+  geminiApiKey: ""

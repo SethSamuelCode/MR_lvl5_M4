@@ -4,8 +4,9 @@ metadata:
   name: backend
 spec:
   type: {{ .Values.backend.service.type }}
-  selector: backend
+  selector:
+    app: backend
   ports:
   - port: {{ .Values.backend.service.port }}
     targetPort: {{ .Values.backend.service.port }}
-    nodePort: {{ .Values.backend.service.port }}
+    nodePort: 30081

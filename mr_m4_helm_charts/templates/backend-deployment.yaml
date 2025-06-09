@@ -5,15 +5,21 @@ metadata:
 spec:
   replicas: {{ .Values.backend.replicas }}
   selector:
-    MatchLables:
-      app: "backend" 
+    matchLabels:
+      app: backend 
   template:
     metadata:
-      lables:
+      labels:
         app: backend
-  spec:
-    containers:
-    - name: backend
-      image: {{ .Values.backend.image.repository }}
-      ports: 
-        - containerPort: {{ .Values.backend.service.port }}
+    spec:
+      containers:
+      - name: backend
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.dockerTag }}"
+        env:
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gemini-secret
+              key: api-key
+        ports: 
+          - containerPort: {{ .Values.backend.service.port }}

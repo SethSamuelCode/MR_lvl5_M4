@@ -25,7 +25,10 @@ app = FastAPI()
 
 # Configure CORS (Cross-Origin Resource Sharing) settings
 corsOrigins = [
-    "http://localhost"
+    "http://localhost",
+    "http://localhost:80",
+    "http://frontend",
+    "http://frontend:80"
 ]
 
 app.add_middleware(
@@ -92,12 +95,3 @@ async def chat(userin: Message) -> str:
     return resp.candidates[0].content.parts[0].text
 
     
-
-
-
-
-    # # Create a new chat session with Gemini model
-    # chat = client.aio.chats.create(model='gemini-2.0-flash')
-    # # Send user message and get response
-    # resp = await chat.send_message(userin.message)
-    # # Extract and return the text from the response

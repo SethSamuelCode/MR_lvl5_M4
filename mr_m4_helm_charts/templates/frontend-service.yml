@@ -4,8 +4,9 @@ metadata:
   name: frontend
 spec:
   type: {{ .Values.frontend.service.type }}
-  selector: frontend
+  selector:
+    app: frontend
   ports:
   - port: {{ .Values.frontend.service.port }}
     targetPort: {{ .Values.frontend.service.port }}
-    nodePort: {{ .Values.frontend.service.port }}
+    nodePort: 30080

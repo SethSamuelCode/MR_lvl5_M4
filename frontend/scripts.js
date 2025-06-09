@@ -2,7 +2,7 @@
 
 // console.log("hello world");
 
-const BACKEND_SERVER = "http://localhost:8000";
+const BACKEND_SERVER = process.env.BACKEND_URL || "http://localhost:8000";
 
 // Get references to DOM elements
 const conversationArea = document.querySelector("#convoDisplayArea");

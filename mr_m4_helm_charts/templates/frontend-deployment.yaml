@@ -5,15 +5,18 @@ metadata:
 spec:
   replicas: {{ .Values.frontend.replicas }}
   selector:
-    MatchLables:
+    matchLabels:
       app: frontend 
   template:
     metadata:
-      lables:
+      labels:
         app: frontend
-  spec:
-    containers:
-    - name: frontend
-      image: {{ .Values.frontend.image.repository }}
-      ports: 
-        - containerPort: {{ .Values.frontend.service.port }}
+    spec:
+      containers:
+      - name: frontend
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.dockerTag }}"
+        env:
+        - name: BACKEND_URL
+          value: "http://backend:{{ .Values.backend.service.port }}"
+        ports: 
+          - containerPort: {{ .Values.frontend.service.port }}
