@@ -8,6 +8,7 @@ const conversationArea = document.querySelector("#convoDisplayArea");
 const userInputForm = document.querySelector("#userInputForm");
 const userTextInputArea = document.querySelector("#userInput");
 const sendButton = document.querySelector("#sendButton");
+const loadingDot = document.querySelector("#loadingDot")
 
 // Set up WebSocket communication handler
 userInputForm.addEventListener("submit", sendViaWebsocket);
@@ -33,6 +34,7 @@ window.onload = async () => {
         aiResponseElement.classList.add("aiResponseBubble", "bubble");
         aiResponseElement.insertAdjacentText("afterbegin", incomingMessage.message);
         conversationArea.append(aiResponseElement);
+        waitAnimationHide()
     };
     
     console.log("WebSocket connection initialized");
@@ -98,4 +100,13 @@ async function sendViaWebsocket(e) {
     
     // Send message through WebSocket connection
     websocket.send(userInput);
+    waitAnimationShow()
+}
+
+function waitAnimationHide(){
+  loadingDot.style.opacity=0;
+}
+function waitAnimationShow(){
+  loadingDot.style.opacity=1;
+
 }
