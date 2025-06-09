@@ -15,24 +15,25 @@ let websocket;
 
 window.onload = async () => {
   // Fetch a new UUID from the backend and store it in SESSION_UUID
-  console.log("running");
   // const uuidResp = await fetch(`${BACKEND_SERVER}/api/uuid`);
   // const uuidFromServer = await uuidResp.json();
   // console.log(uuidFromServer)
   //   console.log("UUID2",SESSION_UUID)
-
+  
   websocket = new WebSocket(`${BACKEND_SERVER}/ws`);
   websocket.onmessage = (event) => {
     console.log(JSON.parse(event.data));
     const incomingMessage = JSON.parse(event.data);
+          sendButton.removeAttribute("disabled"); // Enable send button after first message
       const aiResponseElement = document.createElement("p");
       aiResponseElement.classList.add("aiResponseBubble");
       aiResponseElement.classList.add("bubble");
       aiResponseElement.insertAdjacentText("afterbegin", incomingMessage.message);
       conversationArea.append(aiResponseElement);
+      
+    };
     
-  };
-
+    console.log("running");
   // sendToAI()
 };
 
