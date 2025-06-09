@@ -1,52 +1,79 @@
+/* Global Reset and Base Styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
-body {
-  width: 90%;
-  margin: auto;
-}
-h1 {
-  text-align: center;
-}
-#jobNameContainer {
-  display: flex;
-  flex-direction: column;
-  input {
-    padding: 0.5em;
-  }
-}
-#convoDisplayArea {
-  margin: auto;
-
-  .bubble{
-    padding: 1em;
+    /* Reset default margins and padding */
+    margin: 0;
+    padding: 0;
+    /* Use modern box model for all elements */
+    box-sizing: border-box;
+    /* Add rounded corners to all elements */
     border-radius: 10px;
-  }
-  .userInputBubble {
-    background-color: hsl(93, 100%, 50%);
-  }
-
-  .aiResponseBubble {
-    background-color: hsl(180, 100%, 50%);
-  }
 }
-#userInputForm fieldset {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  margin: auto;
-  /* width:90%; */
-  button {
-    height: 50px;
-  }
 
-  textarea {
-    padding: 1em;
-    height: auto;
-    min-height: 8em;
-  }
+/* Main Layout */
+body {
+    /* Set responsive width with margins */
+    width: 90%;
+    margin: auto;
+}
+
+/* Page Title Styling */
+h1 {
+    text-align: center;
+}
+
+/* Job Name Input Container */
+#jobNameContainer {
+    /* Stack children vertically */
+    display: flex;
+    flex-direction: column;
+    
+    /* Style input fields within container */
+    input {
+        padding: 0.5em;
+    }
+}
+
+/* Conversation Display Area Styling */
+#convoDisplayArea {
+    margin: auto;
+
+    /* Common chat bubble styles */
+    .bubble {
+        /* Add padding and rounded corners to messages */
+        padding: 1em;
+        border-radius: 10px;
+    }
+
+    /* User Message Styling */
+    .userInputBubble {
+        /* Bright green background for user messages */
+        background-color: hsl(93, 100%, 50%);
+    }
+
+    /* AI Response Styling */
+    .aiResponseBubble {
+        /* Cyan background for AI responses */
+        background-color: hsl(180, 100%, 50%);
+    }
+}
+
+/* User Input Form Styling */
+#userInputForm fieldset {
+    /* Stack form elements vertically */
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    /* Send Button Styling */
+    button {
+        height: 50px;
+    }
+
+    /* Text Input Area Styling */
+    textarea {
+        /* Add padding and set minimum height */
+        padding: 1em;
+        height: auto;
+        min-height: 8em;
+    }
 }

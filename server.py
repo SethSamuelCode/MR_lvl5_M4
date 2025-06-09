@@ -48,18 +48,24 @@ class Message(BaseModel):
     uuid: str
     message: str
 
+# Define models for managing chat sessions with Gemini AI
 class ChatSession:
     def __init__(self):
+        # Track last interaction time for potential session cleanup
         self.lastContact :float = time.time()
+        
+        # Initialize a new chat session with Gemini AI
         self._session = client.aio.chats.create(
             model=MODEL_NAME,
             config=types.GenerateContentConfig(
                 system_instruction=[
+                    # Set up the AI assistant's personality and role
                     types.Part.from_text(text=SYSTEM_PROMPT),
                 ],
             )
         )
 
+# Dictionary to store active chat sessions, keyed by UUID
 chatSessions:dict = {}
 # ---------------------- ENDPOINTS --------------------- #
 
@@ -82,27 +88,45 @@ def sendUUID():
 # Chat endpoint that integrates with Gemini AI
 @app.post("/api/chat")
 async def chat(userin: Message) -> str:
-
+    # Create new chat session if one doesn't exist for this UUID
     if userin.uuid not in chatSessions:
         chatSessions[userin.uuid] = ChatSession()
 
+    # Send message to Gemini AI and return its response
     resp = await chatSessions[userin.uuid]._session.send_message(userin.message)
     return resp.candidates[0].content.parts[0].text
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    # Accept the incoming WebSocket connection
     await websocket.accept()
+    
+    # Generate a unique identifier for this connection
     userUUID: str = str(uuid7())
+    
+    # Create a new chat session for this connection
     chatSessions[userUUID]= ChatSession()
+    
+    # Send initial AI response to trigger Tina's introduction
+    # Empty string triggers the system prompt
     aiResp = await chatSessions[userUUID]._session.send_message(" ")
     await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
+    
     try:
+        # Main communication loop
         while True:
+            # Receive text message from the client
             data = await websocket.receive_text()
-            # userinput = json.loads(data)
-            print(data)
+            print(data)  # Log received message
+            
+            # Send user's message to Gemini AI and get response
             aiResp = await chatSessions[userUUID]._session.send_message(data)
+            
+            # Send AI's response back to the client
             await websocket.send_json({"message": aiResp.candidates[0].content.parts[0].text})
+            
     except WebSocketDisconnect:
+        # Handle client disconnection
         print(userUUID+": Disconnected ")
+        # Clean up by removing the chat session
         del chatSessions[userUUID]

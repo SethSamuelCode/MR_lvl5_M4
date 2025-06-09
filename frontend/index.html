@@ -1,28 +1,45 @@
+<!-- Insurance Recommender Web Application Frontend -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Character encoding and viewport settings for responsiveness -->
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Link to external stylesheet for styling -->
     <link
       rel="stylesheet"
       href="style.css" />
+    
+    <!-- JavaScript file with defer attribute to load after HTML parsing -->
     <script
       src="scripts.js"
       defer></script>
+    
+    <!-- Page title -->
     <title>Insurance Recommender</title>
   </head>
   <body>
+    <!-- Main heading -->
     <h1>Insurance Recommender</h1>
+    
+    <!-- Main container for chat interface -->
     <div class="container">
+      <!-- Area where conversation messages will be displayed -->
       <div id="convoDisplayArea"></div>
+      
+      <!-- User input section -->
       <div>
+        <!-- Form for user message input -->
         <form id="userInputForm">
           <fieldset>
+            <!-- Text area for user to type their message -->
             <textarea
               name="userInput"
               id="userInput"></textarea>
+            <!-- Submit button (initially disabled until AI sends first message) -->
             <button type="submit" id="sendButton" disabled>send</button>
           </fieldset>
         </form>
