@@ -7,29 +7,30 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Link to external stylesheet for styling -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"> <!-- Link to external stylesheet for styling -->
     <link
       rel="stylesheet"
       href="style.css" />
-    
+
     <!-- JavaScript file with defer attribute to load after HTML parsing -->
     <script
       src="scripts.js"
       defer></script>
-    
+
     <!-- Page title -->
     <title>Insurance Recommender</title>
   </head>
   <body>
     <!-- Main heading -->
     <h1>Insurance Recommender</h1>
-    
+
     <!-- Main container for chat interface -->
     <div class="container">
       <!-- Area where conversation messages will be displayed -->
       <div id="convoDisplayArea"></div>
-      <div id="loadingAnimationContainer" >
+      <div id="loadingAnimationContainer">
         <div id="loadingDot"></div>
       </div>
       <!-- User input section -->
@@ -42,7 +43,12 @@
               name="userInput"
               id="userInput"></textarea>
             <!-- Submit button (initially disabled until AI sends first message) -->
-            <button type="submit" id="sendButton" disabled>send</button>
+            <button
+              type="submit"
+              id="sendButton"
+              disabled>
+              SEND
+            </button>
           </fieldset>
         </form>
       </div>

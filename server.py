@@ -117,7 +117,7 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             # Receive text message from the client
             data = await websocket.receive_text()
-            print(data)  # Log received message
+            # print(data)  # Log received message
             
             # Send user's message to Gemini AI and get response
             aiResp = await chatSessions[userUUID]._session.send_message(data)

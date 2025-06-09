@@ -1,89 +1,104 @@
 /* Global Reset and Base Styles */
 * {
-    /* Reset default margins and padding */
-    margin: 0;
-    padding: 0;
-    /* Use modern box model for all elements */
-    box-sizing: border-box;
-    /* Add rounded corners to all elements */
-    border-radius: 10px;
+  /* Reset default margins and padding */
+  margin: 0;
+  padding: 0;
+  /* Use modern box model for all elements */
+  box-sizing: border-box;
+  /* Add rounded corners to all elements */
+  border-radius: 10px;
 }
 
 /* Main Layout */
 body {
-    /* Set responsive width with margins */
-    width: 90%;
-    margin: auto;
+  /* Set responsive width with margins */
+  width: 90%;
+  margin: auto;
 }
 
 /* Page Title Styling */
 h1 {
-    text-align: center;
-}
-
-/* Job Name Input Container */
-#jobNameContainer {
-    /* Stack children vertically */
-    display: flex;
-    flex-direction: column;
-    
-    /* Style input fields within container */
-    input {
-        padding: 0.5em;
-    }
+  font-size: 2em;
+  text-align: center;
+  padding: 2rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  text-shadow: rgba(0, 0, 0, 0.062) 0px 3px 6px, rgba(0, 0, 0, 0.068) 0px 3px 6px;
 }
 
 /* Conversation Display Area Styling */
 #convoDisplayArea {
-    margin: auto;
+  margin: auto;
 
-    /* Common chat bubble styles */
-    .bubble {
-        /* Add padding and rounded corners to messages */
-        padding: 1em;
-        border-radius: 10px;
-    }
+  /* Common chat bubble styles */
+  .bubble {
+    /* Add padding and rounded corners to messages */
+    padding: 1em;
+    border-radius: 10px;
+    margin: 0.125em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
-    /* User Message Styling */
-    .userInputBubble {
-        /* Bright green background for user messages */
-        background-color: hsl(93, 100%, 50%);
-    }
+    font-size: 1.125;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;
+  }
 
-    /* AI Response Styling */
-    .aiResponseBubble {
-        /* Cyan background for AI responses */
-        background-color: hsl(180, 100%, 50%);
-    }
+  /* User Message Styling */
+  .userInputBubble {
+    /* Bright green background for user messages */
+    background-color: hsl(93, 100%, 70%);
+  }
+
+  /* AI Response Styling */
+  .aiResponseBubble {
+    /* Cyan background for AI responses */
+    background-color: hsl(180, 100%, 70%);
+  }
 }
 
 /* User Input Form Styling */
 #userInputForm fieldset {
-    /* Stack form elements vertically */
-    display: flex;
-    flex-direction: column;
-    margin: auto;
+  /* Stack form elements vertically */
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
-    /* Send Button Styling */
-    button {
-        height: 50px;
-    }
+  /* Send Button Styling */
+  button {
+    height: 50px;
+    font-size: 1.5em;
+      font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  border: none;
+  }
 
-    /* Text Input Area Styling */
-    textarea {
-        /* Add padding and set minimum height */
-        padding: 1em;
-        height: auto;
-        min-height: 8em;
-    }
+  /* Text Input Area Styling */
+  textarea {
+    /* Add padding and set minimum height */
+    padding: 1em;
+    height: auto;
+    min-height: 8em;
+    font-size: 1.125;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;
+  }
 }
 
-
-#loadingDot{
-
-  width:20px;
+#loadingDot {
+  width: 20px;
   height: 20px;
-  background-color:red;
+  background-color: red;
   position: relative;
   animation: infinite ease-in-out;
   animation-name: loadingAnimation;
@@ -92,16 +107,16 @@ h1 {
   /* margin: auto; */
 }
 
-@keyframes loadingAnimation{
-  0%{
-    left:0;
+@keyframes loadingAnimation {
+  0% {
+    left: 0;
   }
 
-  50%{
+  50% {
     left: 100%;
   }
 
-  100%{
-    left:0%
+  100% {
+    left: 0%;
   }
 }
