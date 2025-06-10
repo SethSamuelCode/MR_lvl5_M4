@@ -3,8 +3,7 @@ kind: Ingress
 metadata:
   name: "{{ .Release.Name }}-frontend-ingress"
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
-    traefik.ingress.kubernetes.io/router.middlewares: "default-redirect-https@kubernetescrd"
+    traefik.ingress.kubernetes.io/router.entrypoints: "web"
 spec:
   rules:
     - host: mr-lvl5-m4.sethsamuel.online
