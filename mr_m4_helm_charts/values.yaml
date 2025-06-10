@@ -2,7 +2,7 @@ frontend:
   replicas: 1
   image: 
     repository: "git.sethsamuel.online/fluffy/mr_lvl5_m4_front"
-    dockerTag: "latest"
+    dockerTag: "k8s"
     pullPolicy: "Always"
   service:
     type: NodePort
