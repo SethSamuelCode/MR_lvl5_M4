@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: default-cors
+spec:
+  headers:
+    accessControlAllowMethods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+      - "OPTIONS"
+    accessControlAllowOriginList:
+      - "http://mr-lvl5-m4.sethsamuel.online"
+    accessControlAllowHeaders:
+      - "*"
+    accessControlMaxAge: 100
+    accessControlAllowCredentials: true
+    addVaryHeader: true

@@ -17,6 +17,6 @@ spec:
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.dockerTag }}"
         env:
         - name: BACKEND_URL
-          value: "http://backend:{{ .Values.backend.service.port }}"
+          value: "ws://backm4.fluffyb.net"
         ports: 
           - containerPort: {{ .Values.frontend.service.port }}
