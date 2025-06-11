@@ -1,11 +1,11 @@
 frontend:
   replicas: 1
   image: 
-    repository: "git.sethsamuel.online/fluffy/mr_lvl5_m4_front"
-    dockerTag: "k8s"
+    repository: "git.sethsamuel.online/fluffy/mr_lvl5_m4_front_k8s"
+    dockerTag: "latest"
     pullPolicy: "Always"
   service:
-    type: NodePort
+    type: ClusterIP
     port: 80
 
 backend:
@@ -15,7 +15,7 @@ backend:
     dockerTag: "latest"
     pullPolicy: "Always"
   service:
-    type: NodePort
+    type: ClusterIP
     port: 8000
   # Add this value during helm install with --set backend.geminiApiKey=your-api-key
   geminiApiKey: ""
