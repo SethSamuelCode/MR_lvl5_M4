@@ -6,7 +6,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
 spec:
   rules:
-    - host: mr-lvl5-m4.sethsamuel.online
+    - host: {{ .Values.frontend.service.url }}
       http:
         paths:
           - path: /

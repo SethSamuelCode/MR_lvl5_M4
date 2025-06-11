@@ -6,7 +6,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
 spec:
   rules:
-    - host: backm4.fluffyb.net
+    - host: {{ .Values.backend.service.url }}
       http:
         paths:
           - path: /

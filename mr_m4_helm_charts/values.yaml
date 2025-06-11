@@ -5,6 +5,7 @@ frontend:
     dockerTag: "latest"
     pullPolicy: "Always"
   service:
+    url: mr-lvl5-m4.sethsamuel.online
     type: ClusterIP
     port: 80
 
@@ -15,6 +16,7 @@ backend:
     dockerTag: "latest"
     pullPolicy: "Always"
   service:
+    url: backm4.fluffyb.net
     type: ClusterIP
     port: 8000
   # Add this value during helm install with --set backend.geminiApiKey=your-api-key

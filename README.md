@@ -96,7 +96,7 @@ The AI assistant (Tina) can help users find the best insurance policy by:
 The application can be deployed to Kubernetes using the provided Helm charts:
 
 ```bash
-helm install insurance-recommender ./mr_m4_helm_charts
+helm install insurance-recommender ./mr_m4_helm_charts --set backend.geminiApiKey=<YOUR_GEMINI_API_KEY>
 ```
 
 ## Project Structure
