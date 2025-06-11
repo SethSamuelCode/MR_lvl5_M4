@@ -1,7 +1,7 @@
 "use strict";
 
 // Backend server URL for API endpoints
-const BACKEND_SERVER = process.env.BACKEND_URL || "http://localhost:8000";
+const BACKEND_SERVER = "http://localhost:8000";
 
 // Get references to DOM elements for user interaction
 const conversationArea = document.querySelector("#convoDisplayArea");
